@@ -12,7 +12,7 @@ const projects = [
     tags: ['MongoDB', 'Express.js', 'React.js', 'Node.js', 'Leaflet', 'REST APIs'],
     features: ['JWT Authentication', 'CRUD Listings & Booking', 'Cloudinary Image CDN', 'Interactive Leaflet Maps', 'Verified Review Score', 'Mobile Responsive Engine'],
     github: 'https://github.com/Pranaypatil43',
-    live: 'https://staynest.vercel.app',
+    live: 'https://syay-nest.vercel.app',
     image: '/projects/projectimage/staynest.png',
     color: '#f07a3c',
     category: 'MERN ARCHITECTURE'
