@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import useInView from '../hooks/useInView'
 import useTilt3D from '../hooks/useTilt3D'
+import TechLogo from './TechLogos'
 import './Projects.css'
 
 const projects = [
@@ -58,24 +59,16 @@ const projects = [
   },
 ]
 
-function ProjectCard({ p, i }) {
-  const [inViewRef, inView] = useInView()
-  const { ref: tiltRef, onMouseMove, onMouseLeave } = useTilt3D({ maxTilt: 5, scale: 1.01 })
+function ProjectCard({ p }) {
+  const { ref: tiltRef, onMouseMove, onMouseLeave } = useTilt3D({ maxTilt: 4, scale: 1.01 })
   const [imgErr, setImgErr] = useState(false)
-  const even = i % 2 === 0
-
-  // Combine both refs
-  const setCombinedRef = (node) => {
-    inViewRef.current = node
-    tiltRef.current = node
-  }
 
   return (
     <div
-      ref={setCombinedRef}
+      ref={tiltRef}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className={`proj-card ${even ? 'reveal-left' : 'reveal-right'}${inView ? ' visible' : ''}`}
+      className="proj-card"
       style={{ '--proj-color': p.color }}
     >
       <div className="proj-card__glare" />
@@ -138,7 +131,10 @@ function ProjectCard({ p, i }) {
 
         <div className="proj-card__tags">
           {p.tags.map((t) => (
-            <span key={t} className="proj-tag">{t}</span>
+            <span key={t} className="proj-tag">
+              <TechLogo name={t} size={14} />
+              <span>{t}</span>
+            </span>
           ))}
         </div>
 
@@ -174,20 +170,107 @@ function ProjectCard({ p, i }) {
 
 export default function Projects() {
   const [ref, inView] = useInView()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const trackRef = useRef(null)
+
+  const scrollToIndex = (idx) => {
+    const track = trackRef.current
+    if (!track) return
+    const cards = track.querySelectorAll('.proj-card')
+    if (cards[idx]) {
+      const offsetLeft = cards[idx].offsetLeft - track.offsetLeft
+      track.scrollTo({ left: offsetLeft, behavior: 'smooth' })
+      setActiveIndex(idx)
+    }
+  }
+
+  const handleNav = (dir) => {
+    const nextIdx = Math.max(0, Math.min(projects.length - 1, activeIndex + dir))
+    scrollToIndex(nextIdx)
+  }
+
+  const handleScroll = () => {
+    const track = trackRef.current
+    if (!track) return
+    const cards = track.querySelectorAll('.proj-card')
+    const scrollPos = track.scrollLeft + track.clientWidth / 2
+    cards.forEach((card, idx) => {
+      const cardStart = card.offsetLeft - track.offsetLeft
+      const cardEnd = cardStart + card.clientWidth
+      if (scrollPos >= cardStart && scrollPos <= cardEnd) {
+        setActiveIndex(idx)
+      }
+    })
+  }
+
   return (
     <section id="projects" className="projects section">
       <div className="pill-label"><span className="dot" /> 03 — SELECTED WORK</div>
+
       <div ref={ref} className={`projects__header reveal${inView ? ' visible' : ''}`}>
-        <h2 className="projects__headline">
-          Engineered for production. <em>Shaped with intent.</em>
-        </h2>
-        <p className="projects__sub">
-          Full-stack applications combining reliable architecture, thoughtful UX, and measurable utility.
-        </p>
+        <div className="projects__header-left">
+          <h2 className="projects__headline">
+            Engineered for production. <em>Shaped with intent.</em>
+          </h2>
+          <p className="projects__sub">
+            Full-stack applications combining reliable architecture, thoughtful UX, and measurable utility.
+          </p>
+        </div>
+
+        {/* Horizontal Navigation Controls */}
+        <div className="projects__nav-controls">
+          <div className="projects__counter">
+            <span className="projects__counter-active">0{activeIndex + 1}</span>
+            <span className="projects__counter-divider">/</span>
+            <span className="projects__counter-total">0{projects.length}</span>
+          </div>
+          <div className="projects__nav-arrows">
+            <button
+              onClick={() => handleNav(-1)}
+              disabled={activeIndex === 0}
+              className="projects__nav-btn"
+              aria-label="Previous project"
+              title="Previous project"
+            >
+              ←
+            </button>
+            <button
+              onClick={() => handleNav(1)}
+              disabled={activeIndex === projects.length - 1}
+              className="projects__nav-btn"
+              aria-label="Next project"
+              title="Next project"
+            >
+              →
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="projects__list">
-        {projects.map((p, i) => (
-          <ProjectCard key={p.num} p={p} i={i} />
+
+      {/* Interactive Project Selector Tabs */}
+      <div className="projects__tabs">
+        {projects.map((p, idx) => (
+          <button
+            key={p.num}
+            onClick={() => scrollToIndex(idx)}
+            className={`projects__tab ${activeIndex === idx ? 'projects__tab--active' : ''}`}
+            style={{ '--tab-color': p.color }}
+          >
+            <span className="projects__tab-dot" />
+            <span className="projects__tab-num">{p.num}</span>
+            <span className="projects__tab-name">{p.name}</span>
+          </button>
+        ))}
+      </div>
+
+      {/* Horizontal Project Track */}
+      <div
+        ref={trackRef}
+        onScroll={handleScroll}
+        className="projects__track"
+      >
+        {projects.map((p) => (
+          <ProjectCard key={p.num} p={p} />
         ))}
       </div>
     </section>

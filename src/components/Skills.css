@@ -113,6 +113,9 @@
 }
 
 .skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
@@ -120,8 +123,13 @@
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 6px;
-  padding: 0.32rem 0.7rem;
+  padding: 0.35rem 0.75rem;
   transition: all 0.2s;
+}
+
+.skill-chip span {
+  display: inline-block;
+  line-height: 1;
 }
 
 .skill-card:hover .skill-chip {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useInView from '../hooks/useInView'
 import useTilt3D from '../hooks/useTilt3D'
 import Scene3D from './Scene3D'
+import TechLogo from './TechLogos'
 import './Hero.css'
 
 function BentoCard({ children, className = '', maxTilt = 10, scale = 1.02, style = {} }) {
@@ -217,18 +218,18 @@ export default function Hero() {
           </div>
         </BentoCard>
 
-        {/* Card 7 — Stack Marquee Banner */}
+        {/* Card 7 — Stack Marquee Banner with Real Tech Logos */}
         <div className="bento bento--marquee">
           <div className="marquee__track">
             {[
               'React.js', 'Node.js', 'Express.js', 'MongoDB', 'Java', 'JavaScript',
-              'REST APIs', 'AWS', 'Git', 'Gemini API', 'LLaMA', 'MySQL', 'Tailwind',
+              'TypeScript', 'AWS', 'Git', 'Gemini API', 'MySQL', 'Tailwind', 'Vite',
               'React.js', 'Node.js', 'Express.js', 'MongoDB', 'Java', 'JavaScript',
-              'REST APIs', 'AWS', 'Git', 'Gemini API', 'LLaMA', 'MySQL', 'Tailwind'
+              'TypeScript', 'AWS', 'Git', 'Gemini API', 'MySQL', 'Tailwind', 'Vite'
             ].map((t, i) => (
               <span key={i} className="marquee__item">
-                <span className="marquee__dot" />
-                {t}
+                <TechLogo name={t} size={16} />
+                <span>{t}</span>
               </span>
             ))}
           </div>

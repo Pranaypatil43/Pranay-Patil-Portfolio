@@ -1,17 +1,18 @@
 import React from 'react'
 import useInView from '../hooks/useInView'
 import useTilt3D from '../hooks/useTilt3D'
+import TechLogo from './TechLogos'
 import './Skills.css'
 
 const categories = [
-  { icon: '⚡', name: 'Languages', color: '#ff3366', items: ['Java', 'JavaScript (ES6+)', 'SQL', 'TypeScript Basics'] },
-  { icon: '🎨', name: 'Frontend Engineering', color: '#fb7185', items: ['React.js', 'Vite', 'HTML5 & CSS3', 'Component Systems', 'Bootstrap'] },
-  { icon: '⚙️', name: 'Backend & Services', color: '#f59e0b', items: ['Node.js', 'Express.js', 'RESTful APIs', 'MVC Architecture'] },
-  { icon: '🔐', name: 'Security & Auth', color: '#e11d48', items: ['JWT Tokens', 'RBAC (Role-Based Access)', 'Password Hashing', 'Session Security'] },
-  { icon: '🤖', name: 'Applied AI & LLMs', color: '#f43f5e', items: ['Gemini 1.5 API', 'Oracle Agentic AI', 'Groq API', 'LLaMA', 'Prompt Pipelines'] },
-  { icon: '🗄️', name: 'Data Architecture', color: '#fda4af', items: ['MongoDB', 'MongoDB Atlas', 'MySQL', 'Relational Schemas', 'NoSQL Queries'] },
-  { icon: '☁️', name: 'Cloud & Tooling', color: '#ea580c', items: ['AWS Basics', 'Git & GitHub', 'Postman API Testing', 'VS Code', 'Vercel Deployment'] },
-  { icon: '🧠', name: 'Computer Science Core', color: '#f87171', items: ['Data Structures & Algorithms', 'OOP Principles', 'DBMS', 'Operating Systems', 'Networking'] },
+  { iconTech: 'java', name: 'Languages', color: '#ff3366', items: ['Java', 'JavaScript (ES6+)', 'SQL', 'TypeScript Basics'] },
+  { iconTech: 'react', name: 'Frontend Engineering', color: '#fb7185', items: ['React.js', 'Vite', 'HTML5', 'CSS3', 'Tailwind', 'Bootstrap'] },
+  { iconTech: 'nodejs', name: 'Backend & Services', color: '#f59e0b', items: ['Node.js', 'Express.js', 'RESTful APIs', 'MVC Architecture'] },
+  { iconTech: 'jwt', name: 'Security & Auth', color: '#e11d48', items: ['JWT Tokens', 'RBAC (Role-Based Access)', 'Password Hashing', 'Session Security'] },
+  { iconTech: 'gemini', name: 'Applied AI & LLMs', color: '#f43f5e', items: ['Gemini 1.5 API', 'Oracle Agentic AI', 'Groq API', 'LLaMA', 'Prompt Pipelines'] },
+  { iconTech: 'mongodb', name: 'Data Architecture', color: '#fda4af', items: ['MongoDB', 'MongoDB Atlas', 'MySQL', 'Relational Schemas', 'NoSQL Queries'] },
+  { iconTech: 'aws', name: 'Cloud & Tooling', color: '#ea580c', items: ['AWS Basics', 'Git', 'GitHub', 'Postman API Testing', 'VS Code', 'Vercel Deployment'] },
+  { iconTech: 'code', name: 'Computer Science Core', color: '#f87171', items: ['Data Structures & Algorithms', 'OOP Principles', 'DBMS', 'Operating Systems', 'Networking'] },
 ]
 
 function SkillCard({ cat, i, inView }) {
@@ -30,13 +31,16 @@ function SkillCard({ cat, i, inView }) {
     >
       <div className="skill-card__glare" />
       <div className="skill-card__head">
-        <span className="skill-card__icon">{cat.icon}</span>
+        <span className="skill-card__icon">
+          <TechLogo name={cat.iconTech} size={22} />
+        </span>
         <span className="skill-card__name">{cat.name}</span>
       </div>
       <div className="skill-card__chips">
         {cat.items.map((item) => (
           <span key={item} className="skill-chip">
-            {item}
+            <TechLogo name={item} size={15} />
+            <span>{item}</span>
           </span>
         ))}
       </div>
