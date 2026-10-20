@@ -61,7 +61,7 @@ export default function Navbar() {
             </svg>
           </a>
           <a
-            href="https://drive.google.com/file/d/1hd_sRtUERYqeG1J8dpRoSRMNRPwHzatf/view?usp=sharing"
+            href="https://drive.google.com/file/d/1AQQCivka3jSKQF9MU5jdl-bcG-niCUfp/view?usp=sharing"
             target="_blank" rel="noreferrer"
             className="nav__resume-btn"
           >

@@ -134,7 +134,7 @@ export default function Hero() {
               View Featured Work <span>→</span>
             </button>
             <a
-              href="https://drive.google.com/file/d/1hd_sRtUERYqeG1J8dpRoSRMNRPwHzatf/view?usp=sharing"
+              href="https://drive.google.com/file/d/1AQQCivka3jSKQF9MU5jdl-bcG-niCUfp/view?usp=sharing"
               target="_blank"
               rel="noreferrer"
               className="btn-ghost"
