@@ -31,8 +31,22 @@ function NodeCanvas() {
       mouse.x = -1000
       mouse.y = -1000
     }
+    const onTouchMove = (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const rect = canvas.getBoundingClientRect()
+        mouse.x = e.touches[0].clientX - rect.left
+        mouse.y = e.touches[0].clientY - rect.top
+      }
+    }
+    const onTouchEnd = () => {
+      mouse.x = -1000
+      mouse.y = -1000
+    }
+
     canvas.addEventListener('mousemove', onCanvasMove)
     canvas.addEventListener('mouseleave', onCanvasLeave)
+    canvas.addEventListener('touchmove', onTouchMove, { passive: true })
+    canvas.addEventListener('touchend', onTouchEnd, { passive: true })
 
     const skillList = [
       'React', 'Node.js', 'MongoDB', 'Express',
@@ -49,15 +63,18 @@ function NodeCanvas() {
       return { name, img, color: item.color }
     })
 
+    const isMobile = W < 480
+    const nodeRadius = isMobile ? 13 : 15
+
     const NODES = nodeImages.map(({ name, img, color }) => ({
       label: name,
       img,
       color,
-      x: Math.random() * (W ? W - 70 : 330) + 35,
-      y: Math.random() * (H ? H - 70 : 230) + 35,
+      x: Math.random() * (W ? W - 60 : 300) + 30,
+      y: Math.random() * (H ? H - 60 : 200) + 30,
       vx: (Math.random() - 0.5) * 0.45,
       vy: (Math.random() - 0.5) * 0.45,
-      r: 15, // badge radius
+      r: nodeRadius, // badge radius
     }))
 
     const draw = () => {
@@ -80,7 +97,7 @@ function NodeCanvas() {
         }
       }
 
-      // Dynamic connections to mouse cursor
+      // Dynamic connections to mouse cursor or touch point
       for (let i = 0; i < NODES.length; i++) {
         const mdx = NODES[i].x - mouse.x
         const mdy = NODES[i].y - mouse.y
@@ -93,7 +110,7 @@ function NodeCanvas() {
           ctx.lineWidth = 1.3
           ctx.stroke()
 
-          // Gentle attraction toward mouse
+          // Gentle attraction toward cursor
           NODES[i].x -= (mdx / mdist) * 0.4
           NODES[i].y -= (mdy / mdist) * 0.4
         }
@@ -121,15 +138,15 @@ function NodeCanvas() {
 
         // Real official SVG brand logo
         if (n.img && n.img.complete && n.img.naturalWidth !== 0) {
-          const iconSize = 17
+          const iconSize = isMobile ? 15 : 17
           ctx.drawImage(n.img, n.x - iconSize / 2, n.y - iconSize / 2, iconSize, iconSize)
         }
 
         // Crisp white text label
-        ctx.font = '600 11px "Plus Jakarta Sans", sans-serif'
+        ctx.font = `600 ${isMobile ? '10px' : '11px'} "Plus Jakarta Sans", sans-serif`
         ctx.textAlign = 'center'
         ctx.fillStyle = '#ffffff'
-        ctx.fillText(n.label, n.x, n.y + n.r + 14)
+        ctx.fillText(n.label, n.x, n.y + n.r + (isMobile ? 12 : 14))
 
         // Physics motion
         n.x += n.vx
@@ -147,6 +164,8 @@ function NodeCanvas() {
       window.removeEventListener('resize', resize)
       canvas.removeEventListener('mousemove', onCanvasMove)
       canvas.removeEventListener('mouseleave', onCanvasLeave)
+      canvas.removeEventListener('touchmove', onTouchMove)
+      canvas.removeEventListener('touchend', onTouchEnd)
     }
   }, [])
 

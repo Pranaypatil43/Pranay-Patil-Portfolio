@@ -53,6 +53,8 @@
 html {
   scroll-behavior: smooth;
   background: var(--bg);
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -62,8 +64,15 @@ body {
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-width: 100%;
   overflow-x: hidden;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Ambient 3D deep dark reddish background illumination */
@@ -94,6 +103,7 @@ button {
 
 img {
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
@@ -124,7 +134,8 @@ ul {
   transform: translate(-50%, -50%);
 }
 
-@media (pointer: coarse) {
+@media (pointer: coarse), (max-width: 960px) {
+  #cursor,
   #cursor-ring {
     display: none !important;
   }
@@ -186,15 +197,21 @@ ul {
   z-index: 2;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .section {
-    padding: 3.5rem 2rem;
+    padding: 3.8rem 2.5rem;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .section {
-    padding: 3rem 1.25rem;
+    padding: 3rem 1.4rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .section {
+    padding: 2.5rem 1rem;
   }
 }
 

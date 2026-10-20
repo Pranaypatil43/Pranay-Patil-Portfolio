@@ -138,11 +138,21 @@
 .nav__burger {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 6px;
+  width: 44px;
+  height: 44px;
   padding: 8px;
   cursor: pointer;
   background: transparent;
   border: none;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.nav__burger:hover {
+  background: rgba(255, 51, 102, 0.1);
 }
 
 .nav__burger span {
@@ -151,21 +161,22 @@
   height: 2px;
   background: var(--text);
   border-radius: 2px;
-  transition: all 0.25s;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s;
 }
 
 .nav__burger span.open:first-child {
-  transform: rotate(45deg) translate(6px, 6px);
+  transform: translateY(4px) rotate(45deg);
 }
 
 .nav__burger span.open:last-child {
-  transform: rotate(-45deg) translate(6px, -6px);
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 /* Mobile drawer */
 .nav__drawer {
   position: fixed;
-  inset: 72px 0 0 0;
+  inset: 0;
+  padding-top: 72px;
   background: rgba(10, 2, 5, 0.98);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
@@ -173,11 +184,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.8rem;
+  justify-content: flex-start;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s;
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .nav__drawer--open {
@@ -185,19 +197,41 @@
   pointer-events: all;
 }
 
+.nav__drawer-content {
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem 1.5rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto 0;
+}
+
+.nav__drawer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0.35rem;
+}
+
 .nav__drawer-link {
   display: flex;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1rem;
   font-family: var(--font-head);
-  font-size: 2.2rem;
-  font-weight: 800;
+  font-size: clamp(1.35rem, 4.6vw, 1.85rem);
+  font-weight: 700;
   color: var(--text-2);
-  padding: 0.5rem 2rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 320px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: color 0.2s, opacity 0.35s, transform 0.35s;
+  transform: translateY(16px);
+  transition: color 0.2s, background 0.2s, opacity 0.35s, transform 0.35s;
   cursor: pointer;
+  border: 1px solid transparent;
 }
 
 .nav__drawer--open .nav__drawer-link {
@@ -205,20 +239,94 @@
   transform: none;
 }
 
-.nav__drawer-link:hover {
-  color: var(--accent);
+.nav__drawer-link:hover,
+.nav__drawer-link:active {
+  color: #fff;
+  background: rgba(255, 51, 102, 0.12);
+  border-color: rgba(255, 51, 102, 0.25);
+}
+
+.nav__drawer-link--active {
+  color: #fff;
+  background: rgba(255, 51, 102, 0.16);
+  border-color: rgba(255, 51, 102, 0.4);
 }
 
 .nav__drawer-num {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--accent);
 }
 
+.nav__drawer-text {
+  letter-spacing: -0.01em;
+}
+
+.nav__drawer-footer {
+  width: 100%;
+  max-width: 320px;
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.nav__drawer-resume {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  min-height: 48px;
+  background: var(--accent-gradient);
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 18px rgba(255, 51, 102, 0.4);
+  text-align: center;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.nav__drawer-resume:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.nav__drawer-socials {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.nav__drawer-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  font-size: 0.86rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.nav__drawer-social-btn:hover {
+  color: var(--accent);
+  border-color: var(--border-2);
+  background: rgba(255, 51, 102, 0.1);
+}
+
 @media (max-width: 960px) {
   .nav {
-    padding: 0 1.5rem;
+    padding: 0 1.25rem;
+    height: 68px;
   }
   .nav__links, .nav__right {
     display: none;
@@ -226,4 +334,8 @@
   .nav__burger {
     display: flex;
   }
+  .nav__drawer {
+    padding-top: 68px;
+  }
 }
+

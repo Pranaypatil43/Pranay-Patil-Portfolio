@@ -3,6 +3,7 @@ import { useRef, useCallback } from 'react'
 /**
  * Custom 3D Tilt Hook
  * Applies 3D perspective rotation, specular glare reflection, and smooth spring physics to any element.
+ * Automatically bypassed on touch / coarse-pointer mobile devices for smooth native scrolling.
  */
 export default function useTilt3D(options = {}) {
   const {
@@ -15,6 +16,11 @@ export default function useTilt3D(options = {}) {
   const ref = useRef(null)
 
   const handleMouseMove = useCallback((e) => {
+    // Avoid running tilt calculations on touch/mobile devices to prevent stuck transforms
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      return
+    }
+
     const card = ref.current
     if (!card) return
 
@@ -44,6 +50,10 @@ export default function useTilt3D(options = {}) {
   }, [maxTilt, perspective, scale, glare])
 
   const handleMouseLeave = useCallback(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      return
+    }
+
     const card = ref.current
     if (!card) return
 
@@ -61,3 +71,4 @@ export default function useTilt3D(options = {}) {
     onMouseLeave: handleMouseLeave,
   }
 }
+

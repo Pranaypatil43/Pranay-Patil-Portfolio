@@ -138,14 +138,61 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .journey__table-head { display: none; }
-  .journey__row {
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-    padding: 1.4rem 1.5rem;
+  .journey__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.2rem;
   }
-  .journey__row-score { align-items: flex-start; flex-direction: row; align-items: center; gap: 0.6rem; }
-  .journey__row-result { font-size: 1.05rem; }
-  .journey__header { flex-direction: column; align-items: flex-start; }
-  .journey__sub { text-align: left; max-width: 100%; }
+  .journey__headline {
+    font-size: clamp(1.8rem, 6.5vw, 2.8rem);
+  }
+  .journey__sub {
+    text-align: left;
+    max-width: 100%;
+    font-size: 0.92rem;
+  }
 }
+
+@media (max-width: 768px) {
+  .journey__table {
+    border-radius: var(--radius);
+  }
+  .journey__table-head {
+    display: none;
+  }
+  .journey__row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 1.25rem 1.1rem;
+  }
+  .journey__row-year {
+    font-size: 0.78rem;
+  }
+  .journey__row-name {
+    font-size: 0.98rem;
+  }
+  .journey__row-degree {
+    font-size: 0.85rem;
+  }
+  .journey__row-score {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.3rem;
+    background: rgba(255, 51, 102, 0.08);
+    border: 1px solid rgba(255, 51, 102, 0.22);
+    padding: 0.28rem 0.65rem;
+    border-radius: 6px;
+  }
+  .journey__row-result {
+    font-size: 0.95rem;
+  }
+  .journey__row-result-label {
+    font-size: 0.65rem;
+  }
+}
+
