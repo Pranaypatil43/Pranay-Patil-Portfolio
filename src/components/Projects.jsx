@@ -14,7 +14,7 @@ const projects = [
     github: 'https://github.com/Pranaypatil43',
     live: 'https://syay-nest.vercel.app',
     image: '/projects/projectimage/staynest.png',
-    color: '#f07a3c',
+    color: '#ff3366',
     category: 'MERN ARCHITECTURE'
   },
   {
@@ -27,7 +27,7 @@ const projects = [
     github: 'https://github.com/Pranaypatil43',
     live: 'https://snapgallery-seven.vercel.app',
     image: '/projects/projectimage/snapgallary.png',
-    color: '#2dd4bf',
+    color: '#fb7185',
     category: 'STUDIO WORKSPACE'
   },
   {
@@ -40,7 +40,7 @@ const projects = [
     github: 'https://github.com/Pranaypatil43/Quick-Campus',
     live: 'https://quickcampus-xi.vercel.app',
     image: '/projects/projectimage/QuickCampus.png',
-    color: '#fbbf24',
+    color: '#f59e0b',
     category: 'ENTERPRISE ERP'
   },
   {
@@ -53,7 +53,7 @@ const projects = [
     github: 'https://github.com/Pranaypatil43',
     live: 'https://chatbot-project-ashen-tau.vercel.app',
     image: '/projects/projectimage/chatbot.png',
-    color: '#f97316',
+    color: '#f43f5e',
     category: 'APPLIED GENAI'
   },
 ]
@@ -80,28 +80,53 @@ function ProjectCard({ p, i }) {
     >
       <div className="proj-card__glare" />
 
-      {/* Image side with 3D hover zoom */}
-      <a href={p.live} target="_blank" rel="noreferrer" className="proj-card__img-link">
-        {!imgErr ? (
-          <img
-            src={p.image}
-            alt={p.name}
-            className="proj-card__img"
-            onError={() => setImgErr(true)}
-          />
-        ) : (
-          <div className="proj-card__img-placeholder" style={{ background: p.color + '18' }}>
-            <span>{p.name}</span>
+      {/* Image Showcase Column */}
+      <div className="proj-card__showcase">
+        <a
+          href={p.live}
+          target="_blank"
+          rel="noreferrer"
+          className="proj-card__preview-wrap"
+          aria-label={`View live application for ${p.name}`}
+        >
+          <div className="proj-card__badge-top">
+            <span className="proj-card__num">{p.num}</span>
+            <span className="proj-card__cat">{p.category}</span>
           </div>
-        )}
-        <div className="proj-card__img-overlay">
-          <span className="proj-card__img-cta">Launch Project ↗</span>
-        </div>
-        <div className="proj-card__badge-top">
-          <span className="proj-card__num">{p.num}</span>
-          <span className="proj-card__cat">{p.category}</span>
-        </div>
-      </a>
+
+          <div className="proj-card__browser">
+            <div className="proj-card__browser-bar">
+              <div className="proj-card__browser-dots">
+                <span /><span /><span />
+              </div>
+              <div className="proj-card__browser-url">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0110 0v4" />
+                </svg>
+                <span>{p.live.replace('https://', '')}</span>
+              </div>
+            </div>
+            <div className="proj-card__browser-screen">
+              {!imgErr ? (
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="proj-card__img"
+                  onError={() => setImgErr(true)}
+                />
+              ) : (
+                <div className="proj-card__img-placeholder" style={{ background: p.color + '18' }}>
+                  <span>{p.name}</span>
+                </div>
+              )}
+              <div className="proj-card__img-overlay">
+                <span className="proj-card__img-cta">Launch Live Project ↗</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
 
       {/* Info side */}
       <div className="proj-card__info">

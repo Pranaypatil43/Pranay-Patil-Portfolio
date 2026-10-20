@@ -85,13 +85,13 @@ export default function Hero() {
             <div className="bento__name-text">
               <p className="bento__tag">FULL-STACK &amp; MERN ENGINEER</p>
               <h1 className="bento__name">
-                Pranay<br /><em>Patil</em>
+                Pranay<br /><span className="bento__name-accent">Patil</span>
               </h1>
             </div>
 
             <div className="bento__footer-info">
               <div className="bento__location">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
@@ -155,11 +155,11 @@ export default function Hero() {
           <pre className="bento__code-body">
             <code>{`export const engineer = {
   name: "Pranay Patil",
-  specialization: "MERN & Full-Stack",
-  core: ["React", "Node", "Express", "MongoDB"],
-  languages: ["Java", "JavaScript", "SQL"],
-  status: "🟢 Ready for Production",
-  mindset: "Craftsmanship & Velocity"
+  role: "Full-Stack Software Engineer",
+  stack: ["React 18", "Node.js", "Express", "MongoDB"],
+  systems: ["Java", "JavaScript", "REST APIs", "SQL"],
+  status: "🟢 Available for Summer/Fall 2026",
+  focus: "Full-Stack Web Apps & Applied AI"
 }`}</code>
           </pre>
         </BentoCard>

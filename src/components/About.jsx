@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import useInView from '../hooks/useInView'
 import './About.css'
 
-/* Animated canvas — floating connected nodes */
+/* Animated canvas — interactive connected constellation */
 function NodeCanvas() {
   const canvasRef = useRef(null)
 
@@ -20,59 +20,87 @@ function NodeCanvas() {
     resize()
     window.addEventListener('resize', resize)
 
+    let mouse = { x: -1000, y: -1000 }
+    const onCanvasMove = (e) => {
+      const rect = canvas.getBoundingClientRect()
+      mouse.x = e.clientX - rect.left
+      mouse.y = e.clientY - rect.top
+    }
+    const onCanvasLeave = () => {
+      mouse.x = -1000
+      mouse.y = -1000
+    }
+    canvas.addEventListener('mousemove', onCanvasMove)
+    canvas.addEventListener('mouseleave', onCanvasLeave)
+
     const skills = ['React', 'Node.js', 'MongoDB', 'Express', 'Java', 'REST API', 'JWT', 'AWS', 'Git', 'Gemini AI', 'MySQL', 'JavaScript']
-    const NODES = skills.map((label, i) => ({
+    const NODES = skills.map((label) => ({
       label,
-      x: Math.random() * W,
-      y: Math.random() * H,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 3 + 3,
+      x: Math.random() * (W || 400),
+      y: Math.random() * (H || 300),
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
+      r: Math.random() * 2.5 + 3,
     }))
 
     const draw = () => {
       ctx.clearRect(0, 0, W, H)
 
-      // connections
+      // connections between nodes
       for (let i = 0; i < NODES.length; i++) {
         for (let j = i + 1; j < NODES.length; j++) {
           const dx = NODES[i].x - NODES[j].x
           const dy = NODES[i].y - NODES[j].y
           const dist = Math.sqrt(dx * dx + dy * dy)
-          if (dist < 160) {
+          if (dist < 150) {
             ctx.beginPath()
             ctx.moveTo(NODES[i].x, NODES[i].y)
             ctx.lineTo(NODES[j].x, NODES[j].y)
-            ctx.strokeStyle = `rgba(232,255,71,${0.12 * (1 - dist / 160)})`
+            ctx.strokeStyle = `rgba(255, 51, 102, ${0.18 * (1 - dist / 150)})`
             ctx.lineWidth = 1
             ctx.stroke()
           }
         }
       }
 
+      // connections to mouse cursor
+      for (let i = 0; i < NODES.length; i++) {
+        const mdx = NODES[i].x - mouse.x
+        const mdy = NODES[i].y - mouse.y
+        const mdist = Math.sqrt(mdx * mdx + mdy * mdy)
+        if (mdist < 120) {
+          ctx.beginPath()
+          ctx.moveTo(NODES[i].x, NODES[i].y)
+          ctx.lineTo(mouse.x, mouse.y)
+          ctx.strokeStyle = `rgba(255, 51, 102, ${0.35 * (1 - mdist / 120)})`
+          ctx.lineWidth = 1.2
+          ctx.stroke()
+        }
+      }
+
       // nodes + labels
       NODES.forEach(n => {
-        // glow
-        const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 4)
-        grd.addColorStop(0, 'rgba(232,255,71,0.18)')
-        grd.addColorStop(1, 'rgba(232,255,71,0)')
+        // glow aura
+        const grd = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 3.5)
+        grd.addColorStop(0, 'rgba(255, 51, 102, 0.35)')
+        grd.addColorStop(1, 'rgba(255, 51, 102, 0)')
         ctx.beginPath()
-        ctx.arc(n.x, n.y, n.r * 4, 0, Math.PI * 2)
+        ctx.arc(n.x, n.y, n.r * 3.5, 0, Math.PI * 2)
         ctx.fillStyle = grd
         ctx.fill()
 
-        // dot
+        // core dot
         ctx.beginPath()
         ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
-        ctx.fillStyle = '#e8ff47'
+        ctx.fillStyle = '#ff3366'
         ctx.fill()
 
-        // label
+        // high-contrast label
         ctx.font = '600 11px "JetBrains Mono", monospace'
-        ctx.fillStyle = 'rgba(232,255,71,0.7)'
-        ctx.fillText(n.label, n.x + n.r + 6, n.y + 4)
+        ctx.fillStyle = '#ffffff'
+        ctx.fillText(n.label, n.x + n.r + 7, n.y + 4)
 
-        // move
+        // motion
         n.x += n.vx
         n.y += n.vy
         if (n.x < 20 || n.x > W - 20) n.vx *= -1
@@ -86,6 +114,8 @@ function NodeCanvas() {
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
+      canvas.removeEventListener('mousemove', onCanvasMove)
+      canvas.removeEventListener('mouseleave', onCanvasLeave)
     }
   }, [])
 

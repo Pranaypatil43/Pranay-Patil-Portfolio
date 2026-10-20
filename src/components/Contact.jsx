@@ -141,12 +141,12 @@ export default function Contact() {
             PP<span className="footer__logo-dot">.</span>
           </span>
           <span className="footer__copy">
-            © 2026 Pranay Patil · Architected with React, Three.js &amp; Modern WebGL
+            © 2026 Pranay Patil · Full-Stack &amp; Systems Engineer
           </span>
         </div>
         <p className="footer__status">
           <span className="footer__status-dot" />
-          Production Environment · All Systems Operational
+          Nashik, India · Open to Relocation &amp; Remote Roles
         </p>
         <div className="footer__links">
           {socials.map((s) => (

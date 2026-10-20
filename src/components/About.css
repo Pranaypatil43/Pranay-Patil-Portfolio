@@ -19,6 +19,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 .about__canvas {
@@ -31,70 +32,95 @@
   position: absolute;
   bottom: 1rem; left: 1rem;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: rgba(232,255,71,0.4);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-2);
   letter-spacing: 0.1em;
   pointer-events: none;
 }
 
 /* Stat cards */
 .about__stat-cards {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
 }
 .stat-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1rem;
-  display: flex; flex-direction: column; gap: 0.3rem;
-  transition: border-color 0.2s, transform 0.2s;
+  padding: 1.2rem 1rem;
+  display: flex; flex-direction: column; gap: 0.4rem;
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
 }
-.stat-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+.stat-card:hover {
+  border-color: var(--border-2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 51, 102, 0.1);
+}
 .stat-card--accent {
-  background: rgba(232,255,71,0.04);
-  border-color: rgba(232,255,71,0.12);
+  background: rgba(255, 51, 102, 0.08);
+  border-color: rgba(255, 51, 102, 0.25);
 }
 .stat-card__num {
-  font-family: var(--font-head); font-size: 1.6rem;
+  font-family: var(--font-head); font-size: 1.8rem;
   font-weight: 800; color: var(--accent); line-height: 1;
 }
-.stat-card__label { font-size: 0.7rem; color: var(--text-3); letter-spacing: 0.06em; }
+.stat-card__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-2);
+  letter-spacing: 0.05em;
+}
 
 /* ── Bio col ── */
 .about__bio-col {
-  display: flex; flex-direction: column; gap: 1.4rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
   padding-top: 0.5rem;
 }
 
 .about__eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.68rem; letter-spacing: 0.14em;
+  font-size: 0.72rem; letter-spacing: 0.14em;
   color: var(--accent); font-weight: 600;
 }
 
 .about__headline {
   font-family: var(--font-head);
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  font-weight: 800; line-height: 1.15;
+  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+  font-weight: 800; line-height: 1.18;
   letter-spacing: -0.025em; color: var(--text);
 }
-.about__headline em { font-style: italic; color: var(--accent); }
+.about__headline em {
+  font-style: normal;
+  color: var(--accent);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
-.about__para { font-size: 0.95rem; line-height: 1.8; color: var(--text-2); }
+.about__para {
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: var(--text-2);
+  font-weight: 400;
+}
 
-.about__details { border-top: 1px solid var(--border); margin-top: 0.5rem; }
+.about__details { border-top: 1px solid var(--border); margin-top: 0.6rem; }
 .about__detail-row {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 0.9rem 0; border-bottom: 1px solid var(--border);
-  font-size: 0.88rem; gap: 1rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--border);
+  font-size: 0.92rem; gap: 1rem;
 }
 .about__detail-label {
-  font-family: var(--font-mono); font-size: 0.72rem;
-  letter-spacing: 0.05em; color: var(--text-3); flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 0.76rem;
+  letter-spacing: 0.06em; color: var(--text-3); flex-shrink: 0;
+  font-weight: 600;
 }
-.about__detail-val { font-weight: 500; color: var(--text); text-align: right; }
+.about__detail-val {
+  font-weight: 600; color: var(--text); text-align: right;
+}
 
-.about__actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
+.about__actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.8rem; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {

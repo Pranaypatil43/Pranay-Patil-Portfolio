@@ -29,10 +29,10 @@
   align-items: center;
   gap: 6px;
   padding: 6px 8px;
-  background: rgba(13, 16, 23, 0.85);
+  background: rgba(18, 5, 10, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(240, 122, 60, 0.25);
+  border: 1px solid rgba(255, 51, 102, 0.25);
   border-radius: 99px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   pointer-events: all;
@@ -40,7 +40,7 @@
 
 .scene3d__ctrl-label {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   letter-spacing: 0.12em;
   color: var(--accent);
   padding: 0 8px;
@@ -55,7 +55,7 @@
   padding: 4px 10px;
   border-radius: 99px;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   color: var(--text-2);
   background: transparent;
   border: 1px solid transparent;
@@ -70,9 +70,9 @@
 
 .scene3d__ctrl-btn.active {
   color: #fff;
-  background: rgba(240, 122, 60, 0.2);
-  border-color: rgba(240, 122, 60, 0.5);
-  box-shadow: 0 0 12px rgba(240, 122, 60, 0.3);
+  background: rgba(255, 51, 102, 0.2);
+  border-color: rgba(255, 51, 102, 0.5);
+  box-shadow: 0 0 12px rgba(255, 51, 102, 0.3);
 }
 
 .scene3d__ctrl-dot {
@@ -82,18 +82,18 @@
 }
 
 .scene3d__ctrl-dot.copper {
-  background: #f07a3c;
-  box-shadow: 0 0 6px #f07a3c;
+  background: #ff3366;
+  box-shadow: 0 0 6px #ff3366;
 }
 
 .scene3d__ctrl-dot.wire {
-  background: #2dd4bf;
-  box-shadow: 0 0 6px #2dd4bf;
+  background: #fb7185;
+  box-shadow: 0 0 6px #fb7185;
 }
 
 .scene3d__ctrl-dot.quantum {
-  background: #fbbf24;
-  box-shadow: 0 0 6px #fbbf24;
+  background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b;
 }
 
 .scene3d__hint {
@@ -101,7 +101,7 @@
   bottom: 28px;
   left: 28px;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   letter-spacing: 0.1em;
   color: var(--text-3);
   pointer-events: none;
@@ -109,7 +109,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  opacity: 0.75;
+  opacity: 0.85;
 }
 
 @media (max-width: 768px) {
