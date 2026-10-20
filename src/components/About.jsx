@@ -131,7 +131,7 @@ export default function About() {
             I build for the space between an idea and a <em>working product.</em>
           </h2>
           <p className="about__para">
-            I'm a third-year Computer Science undergraduate at Sandip University, Nashik. I like turning practical problems into database-driven web applications that are clear, secure, and genuinely useful.
+            I'm a final-year Computer Science undergraduate at Sandip University, Nashik. I like turning practical problems into database-driven web applications that are clear, secure, and genuinely useful.
           </p>
           <p className="about__para">
             My current toolkit centers on Java, JavaScript, the MERN stack, REST APIs, authentication systems, and experiments with LLM-powered products.
