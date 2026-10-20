@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,700;1,800&family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ── Deep Obsidian Canvas ── */
+  --bg:           #07080b;
+  --bg-2:         #0c0f16;
+  --bg-3:         #121622;
+  --bg-card:      rgba(15, 19, 27, 0.78);
+  --bg-card-hover:rgba(20, 26, 38, 0.88);
+
+  /* ── Tactile Borders ── */
+  --border:       rgba(240, 122, 60, 0.12);
+  --border-2:     rgba(240, 122, 60, 0.28);
+  --border-subtle:rgba(255, 255, 255, 0.06);
+
+  /* ── Editorial Typography ── */
+  --text:         #fbfaf7;
+  --text-2:       #adaba4;
+  --text-3:       #6e6960;
+
+  /* ── Bespoke Signature Accents (Non-AI, Organic & Luxurious) ── */
+  --accent:       #f07a3c;        /* Molten Sunburst Copper */
+  --accent-hover: #ff8e54;
+  --accent-gradient: linear-gradient(135deg, #f07a3c 0%, #e25822 55%, #d97706 100%);
+  --accent-2:     #2dd4bf;        /* Mineral Celadon / Jade Teal */
+  --accent-3:     #fbbf24;        /* Champagne Amber Gold */
+
+  /* ── Glass & Ambient Glows ── */
+  --glass:        rgba(255, 255, 255, 0.035);
+  --glass-2:      rgba(255, 255, 255, 0.07);
+  --glow-copper:  rgba(240, 122, 60, 0.25);
+  --glow-celadon: rgba(45, 212, 191, 0.2);
+
+  /* ── Font Stacks ── */
+  --font-head:    'Syne', sans-serif;
+  --font-serif:   'Playfair Display', serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── Radii ── */
+  --radius-sm:    6px;
+  --radius:       12px;
+  --radius-lg:    20px;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ambient 3D background light aura */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle 800px at 85% 15%, rgba(240, 122, 60, 0.05), transparent 70%),
+    radial-gradient(circle 900px at 15% 85%, rgba(45, 212, 191, 0.04), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ── Custom 3D Cursor (only hides system cursor when custom cursor is actively tracking) ── */
+body.custom-cursor-active,
+body.custom-cursor-active a,
+body.custom-cursor-active button,
+body.custom-cursor-active [data-cursor],
+body.custom-cursor-active input,
+body.custom-cursor-active textarea {
+  cursor: none !important;
+}
+
+#cursor {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.12s ease, width 0.2s ease, height 0.2s ease, background 0.2s, opacity 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+#cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(240, 122, 60, 0.45);
+  background: rgba(240, 122, 60, 0.02);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              width 0.25s, height 0.25s, border-color 0.25s, background 0.25s, opacity 0.2s;
+  transform: translate(-50%, -50%);
+}
+
+@media (pointer: coarse) {
+  #cursor, #cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(240, 122, 60, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(240, 122, 60, 0.6);
+}
+
+/* ── Scroll Animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-35px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(35px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Shared Section Padding ── */
+.section {
+  padding: 4.5rem 5rem;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 3.5rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 1.25rem;
+  }
+}
+
+/* ── Noise Overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.55;
+}
+
+/* ── Glow Pill Label ── */
+.pill-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  border: 1px solid rgba(240, 122, 60, 0.25);
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  background: rgba(240, 122, 60, 0.06);
+  backdrop-filter: blur(8px);
+  margin-bottom: 1.2rem;
+}
+
+.pill-label .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
+}
